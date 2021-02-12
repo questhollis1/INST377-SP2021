@@ -1,28 +1,38 @@
 /* Put your javascript in here */
 
-const slideArray = [];
-for (let i = 0; i < document.querySelectorAll('.slider div').length; i++) {
-    slideArray.push(document.querySelectorAll('.slider div')[i].dataset.background);
+/* configuration */
+let width = 130; // image width
+let count = 3; // visible images count
+
+let list = carousel.querySelector('ul');
+let listElems = carousel.querySelectorAll('li');
+
+let position = 0; // ribbon scroll position
+
+carousel.querySelector('.prev').onclick = function() {
+  // shift left
+  position += width * count;
+  // can't move to the left too much, end of images
+  position = Math.min(position, 0)
+  list.style.marginLeft = position + 'px';
+};
+
+carousel.querySelector('.next').onclick = function() {
+  // shift right
+  position -= width * count;
+  // can only shift the ribbbon for (total ribbon length - visible count) images
+  position = Math.max(position, -width * (listElems.length - count));
+  list.style.marginLeft = position + 'px';
+};
+
+function arraysushi() {
+  const iarray = []; 
+  const images = [document.querySelector('.image')];
+  images.forEach(element => {
+    const imagesb = element.querySelector('li');
+    console.log(element);
+    iarray.append(imagesb);
+  })
+  console.log('imagearray',iarray);
 }
-
-let currentSlideIndex = -1;
-
-function advanceSliderItem() {
-    currentSlideIndex++;
-
-    if (currentSlideIndex >= slideArray.length) {
-        currentSlideIndex = 0;
-    }
-
-    document.querySelector('.slider').style.cssText = 'background: url("' + slideArray[currentSlideIndex] + '") no-repeat center center; background-size: cover;';
-
-    const elems = document.getElementsByClassName('caption');
-    for (let i = 0; i < elems.length; i++) {
-        elems[i].style.cssText = 'opacity: 0;';
-    }
-
-    const currentCaption = document.querySelector('.caption-' + (currentSlideIndex));
-        currentCaption.style.cssText = 'opacity: 1;';
-    }
-
-    let intervalID = setInterval(advanceSliderItem, 3000);
+arraysushi()

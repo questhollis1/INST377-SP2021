@@ -4,61 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quest Hollis lab 4</title>
-    <link href="styles.css" rel="stylesheet">
+    <title>Quest Hollis' Lab 4</title>
+    <link href="styles.css" type= "text/css" rel="stylesheet">
 </head>
 
 <body>
-    <div class = 'header'>
-        <h1>Quest Hollis lab 4</h1>
-    </div>
     
     <div class="container">
+        <div class = 'header'>
+            <h1>Quest Hollis' Lab 4</h1>
+        </div>
         <form action="/api" method="POST">
-            <label for = "messages"></label>
+            
+
             <ul class ='flex-outer'>
                 <li>
-                    <label for ="first-name">First Name</label>
-                    <input name= "first-name" type ="text" id = "fname"  placeholder="Enter your first name here">    
+                    <label for ="fname">First Name</label>
+                    <input name = "fname" type ="text" id = "fname"  placeholder="Enter your first name here">    
                 </li>
                 <li>
-                    <label for ="last-name">Last Name</label>
-                    <input name= "last-name" type ="text" id = "lname"  placeholder="Enter your Last name here">    
+                    <label for ="lname">Last Name</label>
+                    <input name = "lname" type ="text" id = "lname"  placeholder="Enter your Last name here">    
                 </li>
                 <li>
                     <label for ="email">Email</label>
-                    <input name= "email" type ="email" id = "email"  placeholder="Enter your Email here">    
+                    <input name = "email" type ="email" id = "email"  placeholder="Enter your Email here">    
                 </li>
                 <li>
                     <label for ="phone">Phone</label>
-                    <input name= "phone" type ="tel" id = "phone"  placeholder="Enter your phone here">    
+                    <input name = "phone" type ="tel" id = "phone"  placeholder="Enter your phone here">    
                 </li>
                 <li>
-                    <label for ="message" >Text Field</label>
-                    <textarea name = "message" rows ="5" cols = "33" id = "message"  placeholder="This is some default message text"></textarea>   
+                    <label for ="messages" >Text Field</label>
+                    <textarea name = "messages" rows ="5" cols = "33" id = "messages"  placeholder="This is some default message text"></textarea>   
                 </li>
                 <li>
                     <p>Age</p> <!-- Use P for text as its a text item here labeling the list, better then lable class for this-->
                     <ul class = "flex-inner">
                         <li>
-                            <input type ="checkbox" id = "eighteen-to-thirtyfive">
-                            <label for="eighteen-to-thirtyfive">18-35</label>
+                            <input name = "age" type ="checkbox" id = "eighteen-to-thirtyfive">
+                            <label for ="eighteen-to-thirtyfive">18-35</label>
                         </li>
                         <li>
-                            <input type ="checkbox" id = "thirtyfive-to-fifty">
+                            <input name= "age" type ="checkbox" id = "thirtyfive-to-fifty">
                             <label for="thirtyfive-to-fifty">35-50</label>
                         </li>
                         <li>
-                            <input type ="checkbox" id = "fifty-to-sixtyfive">
+                            <input  name= "age" type ="checkbox" id = "fifty-to-sixtyfive">
                             <label for="fifty-to-sixtyfive">50-65</label>
                         </li>
                     </ul>
                   </li>
                   <li>
-                    <button type="submit">Submit Form</button>
+                    <button class= "submit" name= "submit" id = "submit_button" type="submit">Submit Form</button>
                   </li>
                 </ul>
-              </form>
-            </div>
+          </form>
+     </div>
 </body>
 </html>

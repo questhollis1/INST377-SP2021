@@ -57,3 +57,5 @@ input.searchbox {
     font-weight: lighter;
     color: #111;
 }
+
+#mapid { height: 180px; }

@@ -60,12 +60,23 @@ fetch(endpoint)
 function findMatches(wordToMatch, zipcodes){
     return zipcodes.filter(place => {
     const regex = new RegExp(wordToMatch, "gi");
-    return place.zip.match(regex) || place.city.match(regex)
+    return place.zip.match(regex)
     });
 }
 
+const filtered = data.filter((record) => record.zip.includes(zipcodes.value) && record.geocoded_column_1);
+const topFive = filtered.slice(0, 5);
+
+
 function displayMatches(){
     const matchArray = findMatches(this.value, zipcodes);
+
+ topFive.forEach((item) => {
+    const longLat = item.geocoded_column_1.coordinates;
+    console.log('markerLongLat', longLat[0], longLat[1]);
+    const marker = L.marker([longLat[1], longLat[0]]).addTo(mapObjectFromFunction);
+
+
     const html = matchArray.map(place => {
         const regex = new RegExp(this.value, "gi");
         const cityName = place.city;
@@ -79,18 +90,16 @@ function displayMatches(){
                 <li>
                     <div class="name">${restaurantName}</div>
                     <div class="address">${addressLine1}</div>
-                    <div class="address">${cityName}, ${zipCode}</div>
-                    <div class="category">${category}</div>
-                    <div class="inspection result">${inspectionResults}</div>
+                    <div class="address">${cityName}, ${zipCode}</div>  
                 </li>
             </div>
             `;
     }).join('');
     suggestions.innerHTML = html;
-}
+}}
 
-const searchInput = document.querySelector('.input');
-const suggestions = document.querySelector('.suggestions');
+// const searchInput = document.querySelector('.input');
+// const suggestions = document.querySelector('.suggestions');
 
 searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);

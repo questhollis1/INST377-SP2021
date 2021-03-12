@@ -12,8 +12,6 @@ function mapInit() {
     }).addTo(mymap);
   
     const popup = L.popup();
-  
-    const marker = L.marker([0,0]).addTo(mymap);
 
     return mymap;
   }

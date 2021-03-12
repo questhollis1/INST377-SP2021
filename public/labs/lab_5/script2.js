@@ -37,7 +37,6 @@ function mapInit() {
       }
   
       const matchArray = findMatches(event.target.value, zipcodes);
-  
       zipcodes.forEach((item) => {
         const longLat = item.geocoded_column_1.coordinates;
         console.log('markerLongLat', longLat[0], longLat[1]);

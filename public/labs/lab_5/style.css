@@ -6,7 +6,7 @@ html, body {
     color: rgb(19, 18, 18);
     text-align: center;
     padding: 0;
-    background-color: #ff8c8c;
+    background-color: #fafafa;
     font-family: 'Bebas Neue', sans-serif;
 }
 
@@ -58,4 +58,17 @@ input.searchbox {
     color: #111;
 }
 
-#mapid { height: 180px; }
+
+#mapid { height: 180px;}
+
+.list-header {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.list-item{
+    border-radius: 4px;
+    color: white;
+    background: orange;
+    padding: 5px;
+}

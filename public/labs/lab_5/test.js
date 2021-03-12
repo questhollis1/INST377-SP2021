@@ -10,10 +10,18 @@ function mapInit() {
       zoomOffset: -1,
       accessToken: 'pk.eyJ1IjoicWhvbGxpcyIsImEiOiJja201NzM1NmkwYm11Mm9wYjVobXMwcmQ4In0.yCgatPrn48ZW6kjKTzPEgQ'
   }).addTo(mymap);
-  
-  const marker = L.marker([51.5, -0.09]).addTo(mymap);
-  
-  
+
+  const popup = L.popup();
+
+  function onMapClick(e) {
+    popup
+      .setLatLng(e.latlng)
+      .setContent(`You clicked the map at ${e.latlng.toString()}`)
+      .openOn(mymap);
+  }
+
+  mymap.on('click', onMapClick);
+
   return mymap;
   }
   async function dataHandler(mapObjectFromFunction) {
@@ -24,23 +32,39 @@ function mapInit() {
   
   
   const endpoint = 'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json';
+  const search = document.querySelector("#input");
+  const formElem = document.querySelector("#formElem");
+  const suggestions = document.querySelector(".suggestions");
+  const replyMessage = document.querySelector(".reply-message")
   const zipcodes = [];
   
-  fetch(endpoint)
-      .then(blob => blob.json())
-      .then(data => zipcodes.push(...data))
+  const request = await fetch(endpoint);
+  const data = await request.json();
+
+
+
+  //fetch(endpoint)
+   //   .then(blob => blob.json())
+   //   .then(data => zipcodes.push(...data))
   
-  function findMatches(wordToMatch, zipcodes){
+function displayMatches(event, zipcodes){
+  function findMatches(wordToMatch){
       return zipcodes.filter(place => {
       const regex = new RegExp(wordToMatch, "gi");
-      return place.zip.match(regex)
+      return place.zip.match(regex);
       });
   }
   
-  function displayMatches(){
-      const matchArray = findMatches(this.value, zipcodes);
-      const topFive = matchArray.slice(0,5)
-      const html = topFive.map(place => {
+const matchArray = findMatches(event.target.value, zipcode);
+
+zipcodes.forEach((item) => {
+    const longLat = item.geocoded_column_1.coordinates;
+    console.log('markerLongLat', longLat[0], longLat[1]);
+    const marker = L.marker([longLat[1], longLat[0]]).addTo(mapObjectFromFunction);
+
+
+
+      const html = matchArray.map(place => {
           const regex = new RegExp(this.value, "gi");
           const cityName = place.city;
           const zipCode = place.zip;
@@ -61,13 +85,21 @@ function mapInit() {
       suggestions.innerHTML = html;
   };
   
-  const searchInput = document.querySelector('.input');
-  const suggestions = document.querySelector('.suggestions');
-  
-  searchInput.addEventListener('change', displayMatches);
-  searchInput.addEventListener('keyup', displayMatches);
-  
-  
+ 
+  formElem.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+   
+    const filtered = data.filter((record) => record.zip.includes(search.value) && record.geocoded_column_1);
+    const topFive = filtered.slice(0, 5);
+
+    if (topFive.length < 1) {
+      replyMessage.classList.add('box');
+      replyMessage.innerText = 'No matches found';
+    }
+
+    displayMatches(evt, topFive);
+  });
+}
   
   async function windowActions() {
     const map = mapInit();

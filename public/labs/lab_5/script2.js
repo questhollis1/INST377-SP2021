@@ -61,7 +61,6 @@ function mapInit() {
       });
     }
   
- 
     formElem.addEventListener('submit', (evt) => {
       evt.preventDefault();
       

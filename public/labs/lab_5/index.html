@@ -17,24 +17,26 @@
 </head>
 
 <body>
-    <div class="header">
+    <div class="columns is-max-widescreen">
+    <div class="column info">
         <h1>Quest Hollis' Lab 5</h1>
-    </div>
-    <div class="container"> 
-        <form id="formElem">
-            <label for="input">Enter a Zip Code/City:</label>
-            <input type="text" id="input" class="input is-rounded is-small" placeholder="zipcode or city">
-            <div class="column is-3"></div>
-            <button class="button" type="submit">Submit</button>
-            <ul class="suggestions">
-                <!-- RESULTS POPULATE HERE -->
-            </ul>
-        </form>
+   
+        <div class="container">
+            <form id="formElem">
+                <label for="input">Enter a Zip Code/City:</label>
+                <input type="text" id="input" class="input is-rounded is-small" placeholder="zipcode or city">
+                <div class="column is-3"></div>
+                <button class="button" type="submit">Submit</button>
+                <ul class="suggestions">
+                    <!-- RESULTS POPULATE HERE -->
+                </ul>
+            </form>
+        </div>
     </div>
     <div class="column">
-        <div id="mapid"></div>
+        <div class="box" id="mapid"></div>
     </div>
-
+    </div>    
     <script src="script.js"></script>
 </body>
 </html>

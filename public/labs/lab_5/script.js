@@ -8,47 +8,20 @@ function mapInit() {
     id: 'mapbox/streets-v11',
     tileSize: 512,
     zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoicWhvbGxpcyIsImEiOiJja200ZG5zZjIwMTJ0MnFvYzFlOWQyNWhkIn0.VD0QtW_Vl28W4ypYHCGp0A'
+    accessToken: 'pk.eyJ1IjoicWhvbGxpcyIsImEiOiJja201NzM1NmkwYm11Mm9wYjVobXMwcmQ4In0.yCgatPrn48ZW6kjKTzPEgQ'
 }).addTo(mymap);
-
 
 const marker = L.marker([51.5, -0.09]).addTo(mymap);
 
-const circle = L.circle([51.508, -0.11], {
-  color: 'red',
-  fillColor: '#f03',
-  fillOpacity: 0.5,
-  radius: 500
-}).addTo(mymap);
-
-const polygon = L.polygon([
-  [51.509, -0.08],
-  [51.503, -0.06],
-  [51.51, -0.047]
-]).addTo(mymap);
-
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-circle.bindPopup("I am a circle.");
-polygon.bindPopup("I am a polygon.");
-
-
-const popup = L.popup()
-    .setLatLng([51.5, -0.09])
-    .setContent("I am a standalone popup.")
-    .openOn(mymap);
-
-function onMapClick(e) {
-    alert("You clicked the map at " + e.latlng);
-  }
-  
-  mymap.on('click', onMapClick);
 
 return mymap;
 }
 async function dataHandler(mapObjectFromFunction) {
   // use your assignment 1 data handling code here
   // and target mapObjectFromFunction to attach markers
+
 }
+
 
 const endpoint = 'https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json';
 const zipcodes = [];
@@ -64,27 +37,17 @@ function findMatches(wordToMatch, zipcodes){
     });
 }
 
-const filtered = data.filter((record) => record.zip.includes(zipcodes.value) && record.geocoded_column_1);
-const topFive = filtered.slice(0, 5);
-
-
 function displayMatches(){
     const matchArray = findMatches(this.value, zipcodes);
-
- topFive.forEach((item) => {
-    const longLat = item.geocoded_column_1.coordinates;
-    console.log('markerLongLat', longLat[0], longLat[1]);
-    const marker = L.marker([longLat[1], longLat[0]]).addTo(mapObjectFromFunction);
-
-
-    const html = matchArray.map(place => {
+    const topFive = matchArray.slice(0,5)
+    const html = topFive.map(place => {
         const regex = new RegExp(this.value, "gi");
         const cityName = place.city;
         const zipCode = place.zip;
         const addressLine1 = place.address_line_1;
         const restaurantName = place.name;
-        const inspectionResults = place.inspection_results;
-        const {category} = place;
+      
+      
         return `
             <div class="box is-small">
                 <li>
@@ -96,10 +59,10 @@ function displayMatches(){
             `;
     }).join('');
     suggestions.innerHTML = html;
-}}
+};
 
-// const searchInput = document.querySelector('.input');
-// const suggestions = document.querySelector('.suggestions');
+const searchInput = document.querySelector('.input');
+const suggestions = document.querySelector('.suggestions');
 
 searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);
